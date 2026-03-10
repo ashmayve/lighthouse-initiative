@@ -36,27 +36,17 @@ body {
 
 /* ── CUSTOM CURSOR ── */
 .cursor {
-  width: 32px; height: 32px;
+  width: 12px; height: 12px;
+  background: var(--yellow);
+  border-radius: 50%;
   position: fixed; top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%) rotate(0deg);
-  transition: transform 0.12s ease, width 0.2s, height 0.2s;
-  animation: cursor-spin 4s linear infinite;
-  filter: drop-shadow(0 0 6px #ffe14d) drop-shadow(0 0 14px #ffcc00);
+  mix-blend-mode: multiply;
+  transition: transform 0.12s ease, width 0.2s, height 0.2s, background 0.2s;
+  transform: translate(-50%, -50%);
 }
-.cursor svg { width: 100%; height: 100%; }
-.cursor.big {
-  width: 48px; height: 48px;
-  filter: drop-shadow(0 0 10px #ffe14d) drop-shadow(0 0 22px #ffcc00);
-}
-@keyframes cursor-spin {
-  0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
-  25%  { transform: translate(-50%, -50%) rotate(90deg)  scale(1.15); }
-  50%  { transform: translate(-50%, -50%) rotate(180deg) scale(1); }
-  75%  { transform: translate(-50%, -50%) rotate(270deg) scale(1.1); }
-  100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-}
+.cursor.big { width: 36px; height: 36px; background: var(--sky); opacity: 0.45; }
 
 /* ── NAV ── */
 nav {
@@ -85,54 +75,6 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--yellow); }
-
-/* ── DROPDOWN MENU ── */
-.nav-dropdown { position: relative; }
-.nav-dropdown-btn {
-  background: none; border: none; cursor: none;
-  color: rgba(255,255,255,0.65);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13.5px; font-weight: 500; letter-spacing: 0.3px;
-  display: flex; align-items: center; gap: 7px;
-  padding: 8px 4px; transition: color 0.2s;
-}
-.nav-dropdown-btn:hover { color: var(--yellow); }
-.nav-dropdown-btn svg { transition: transform 0.25s ease; }
-.nav-dropdown.open .nav-dropdown-btn svg { transform: rotate(180deg); }
-.nav-dropdown-btn:hover svg path { stroke: var(--yellow); }
-
-.dropdown-menu {
-  position: absolute; top: calc(100% + 14px); left: 50%;
-  transform: translateX(-50%) translateY(-6px);
-  background: rgba(5,14,46,0.97);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(78,180,255,0.15);
-  border-radius: 16px;
-  padding: 10px 0;
-  min-width: 180px;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  z-index: 200;
-}
-.nav-dropdown.open .dropdown-menu {
-  opacity: 1; pointer-events: all;
-  transform: translateX(-50%) translateY(0);
-}
-.dropdown-menu a {
-  display: block; padding: 11px 22px;
-  color: rgba(255,255,255,0.7); text-decoration: none;
-  font-size: 13.5px; font-weight: 500; letter-spacing: 0.3px;
-  transition: color 0.18s, background 0.18s;
-  white-space: nowrap;
-}
-.dropdown-menu a:hover {
-  color: var(--yellow);
-  background: rgba(255,225,77,0.07);
-}
-.dropdown-menu a + a {
-  border-top: 1px solid rgba(78,180,255,0.08);
-}
 .nav-cta {
   background: var(--yellow); color: var(--dark);
   padding: 9px 22px; border-radius: 100px;
@@ -140,18 +82,6 @@ nav {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,225,77,0.4); }
-
-.nav-right {
-  display: flex; align-items: center; gap: 10px;
-}
-
-@media (max-width: 500px) {
-  nav { padding: 16px 20px; }
-  .nav-logo { font-size: 20px; }
-  .nav-logo .lh-icon { width: 18px; height: 26px; }
-  .nav-cta { padding: 8px 14px; font-size: 12px; }
-  .nav-dropdown-btn { font-size: 12px; }
-}
 
 /* ── HERO ── */
 .hero {
@@ -226,20 +156,11 @@ h1.hero-title .word-light::after {
 }
 .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-3px); }
 
-.star-spark {
-  position: absolute;
-  pointer-events: none;
-  animation: sparkle var(--sd, 3s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-  filter: drop-shadow(0 0 4px currentColor);
-}
-@keyframes sparkle {
-  0%   { opacity: 0;    transform: scale(0.4) rotate(0deg);   filter: drop-shadow(0 0 2px currentColor); }
-  30%  { opacity: 1;    transform: scale(1.2) rotate(20deg);  filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor); }
-  60%  { opacity: 0.75; transform: scale(0.9) rotate(-10deg); filter: drop-shadow(0 0 5px currentColor); }
-  100% { opacity: 0;    transform: scale(0.3) rotate(30deg);  filter: drop-shadow(0 0 2px currentColor); }
-}
+.float-shape { position: absolute; border-radius: 50%; pointer-events: none; animation: float 7s ease-in-out infinite; }
+.fs1 { width: 16px; height: 16px; background: var(--yellow); top: 25%; right: 20%; }
+.fs2 { width: 10px; height: 10px; background: var(--coral); top: 60%; right: 35%; animation-delay: -2s; }
+.fs3 { width: 22px; height: 22px; background: var(--mint); opacity: 0.65; bottom: 25%; right: 15%; animation-delay: -4s; border-radius: 5px; }
+.fs4 { width: 8px; height: 8px; background: var(--lilac); top: 40%; right: 28%; animation-delay: -1s; }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
 
 .hero-stats {
@@ -330,27 +251,14 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 .impact-quote::before { content:'\201C'; font-size: 90px; color: rgba(255,255,255,0.12); position: absolute; top: -12px; left: 16px; line-height: 1; }
 .impact-quote cite { display: block; margin-top: 12px; font-style: normal; font-size: 12px; color: var(--sky); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
 
-/* ── SECTION STARS (dark blue areas) ── */
-.sec-stars {
-  position: absolute; inset: 0;
-  pointer-events: none; overflow: hidden; z-index: 0;
-}
-.sec-star {
-  position: absolute;
-  animation: sparkle var(--sd, 3s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-}
-.how    { position: relative; background: var(--dark); }
-.how > *:not(.sec-stars) { position: relative; z-index: 1; }
-.join   { position: relative; }
-.ocean-floor { position: relative; }
+/* ── HOW IT WORKS ── */
+.how { background: var(--dark); color: white; }
 .how h2.sec-title { color: white; }
 .how .sec-body { color: rgba(255,255,255,0.55); }
 .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 22px; overflow: hidden; margin-top: 56px; }
 .step { background: var(--mid); padding: 38px 28px; position: relative; transition: background 0.3s; }
 .step:hover { background: #1a3a8a; }
-.step-num { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1; margin-bottom: 14px; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: rgba(255,255,255,0.04); line-height: 1; margin-bottom: 14px; }
 .step-icon { font-size: 30px; margin-bottom: 14px; display: block; }
 .step-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: white; margin-bottom: 10px; }
 .step-body { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.75; font-weight: 300; }
@@ -375,77 +283,10 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 .tc-desc { font-size: 13px; color: #5a6a9a; line-height: 1.65; font-weight: 300; }
 
 /* ── JOIN ── */
-/* ── GALLERY CAROUSEL ── */
-.gallery-section { background: var(--offwhite); padding: 100px 52px; overflow: hidden; }
-.carousel-track-wrap { position: relative; margin-top: 52px; }
-.carousel-track {
-  display: flex; gap: 22px;
-  transition: transform 0.45s cubic-bezier(.22,.68,0,1.2);
-}
-.carousel-slide {
-  flex: 0 0 calc(33.333% - 15px);
-  border-radius: 20px; overflow: hidden;
-  background: #dce8f5;
-  aspect-ratio: 4/3;
-  position: relative;
-  border: 1.5px solid rgba(26,92,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.carousel-slide:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,92,255,0.1); }
-.carousel-slide .slide-placeholder {
-  width: 54px; height: 54px; border-radius: 50%;
-  background: rgba(26,92,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-}
-.carousel-slide .slide-label {
-  font-size: 12px; color: rgba(5,14,46,0.35);
-  font-weight: 500; letter-spacing: 0.5px;
-}
-.carousel-slide img {
-  width: 100%; height: 100%; object-fit: cover;
-  position: absolute; inset: 0;
-}
-.carousel-nav {
-  display: flex; align-items: center; justify-content: center;
-  gap: 14px; margin-top: 32px;
-}
-.carousel-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--dark); border: 1.5px solid rgba(78,180,255,0.2);
-  color: white; font-size: 18px; cursor: none;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s, transform 0.2s;
-}
-.carousel-btn:hover { background: var(--blue); transform: scale(1.08); }
-.carousel-dots { display: flex; gap: 8px; }
-.cdot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(5,14,46,0.15); cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-.cdot.active { background: var(--blue); transform: scale(1.3); }
-.gallery-cta { text-align: center; margin-top: 38px; }
-.btn-gallery {
-  display: inline-block;
-  padding: 13px 32px; border-radius: 100px;
-  background: var(--dark); color: white;
-  font-size: 12px; font-weight: 600; letter-spacing: 2.5px;
-  text-transform: uppercase; text-decoration: none;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-.btn-gallery:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,92,255,0.3); }
-
-@media (max-width: 700px) {
-  .carousel-slide { flex: 0 0 85%; }
-}
-
-.join { background: linear-gradient(170deg, #0a1f5c 0%, #071640 40%, #050e2e 75%, #050e24 100%); text-align: center; position: relative; overflow: hidden; }
+.join { background: linear-gradient(140deg, var(--blue) 0%, var(--blue3) 55%, var(--dark) 100%); text-align: center; position: relative; overflow: hidden; }
 .join::before { content:''; position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px); background-size:30px 30px; }
-.join-blob1 { position:absolute; width:420px; height:420px; border-radius:50%; background:#1a3a8f; opacity:0.18; filter:blur(100px); top:-100px; right:-100px; }
-.join-blob2 { position:absolute; width:300px; height:300px; border-radius:50%; background:#0d2a6e; opacity:0.15; filter:blur(80px); bottom:-80px; left:-80px; }
+.join-blob1 { position:absolute; width:420px; height:420px; border-radius:50%; background:var(--coral); opacity:0.12; filter:blur(80px); top:-100px; right:-100px; }
+.join-blob2 { position:absolute; width:300px; height:300px; border-radius:50%; background:var(--mint); opacity:0.1; filter:blur(60px); bottom:-80px; left:-80px; }
 .join-inner { position:relative; z-index:2; max-width:660px; margin:0 auto; }
 .join h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,5.5vw,72px); font-weight:300; color:white; letter-spacing:-0.5px; line-height:1.05; margin-bottom:22px; }
 .join h2 em { color:var(--yellow); font-style:italic; }
@@ -536,43 +377,9 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 .reveal-d3 { transition-delay:0.3s; }
 </style>
 </head>
-<!-- CONTACT POPUP -->
-<div id="contactModal" style="display:none;position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:rgba(5,14,46,0.7);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity 0.25s ease;">
-  <div style="background:#0d1e4a;border:1px solid rgba(78,180,255,0.2);border-radius:24px;padding:40px 44px;max-width:360px;width:90%;box-shadow:0 30px 80px rgba(0,0,0,0.5);position:relative;transform:translateY(16px);transition:transform 0.25s ease;">
-    <button id="closeContact" style="position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:22px;cursor:none;line-height:1;">&times;</button>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:white;margin-bottom:6px;">Get in Touch</div>
-    <div style="width:36px;height:2px;background:var(--yellow);border-radius:2px;margin-bottom:24px;"></div>
-    <div style="display:flex;flex-direction:column;gap:18px;">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div style="width:38px;height:38px;border-radius:50%;background:rgba(26,92,255,0.15);display:flex;align-items:center;justify-content:center;font-size:17px;">📞</div>
-        <div>
-          <div style="font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:3px;">Phone</div>
-          <div style="color:white;font-size:15px;font-weight:400;">0506850313</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div style="width:38px;height:38px;border-radius:50%;background:rgba(26,92,255,0.15);display:flex;align-items:center;justify-content:center;font-size:17px;">📸</div>
-        <div>
-          <div style="font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:3px;">Instagram</div>
-          <a href="https://www.instagram.com/thelighthouse.initiative/?utm_source=ig_web_button_share_sheet" target="_blank" style="color:white;font-size:15px;text-decoration:none;font-weight:400;">@thelighthouse.initiative</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <body>
 
-<div class="cursor" id="cursor">
-  <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-    <!-- 4-point spikey star -->
-    <path d="M20 2 L22.5 17.5 L38 20 L22.5 22.5 L20 38 L17.5 22.5 L2 20 L17.5 17.5 Z" fill="#ffe14d"/>
-    <!-- inner glow -->
-    <path d="M20 8 L21.5 18.5 L32 20 L21.5 21.5 L20 32 L18.5 21.5 L8 20 L18.5 18.5 Z" fill="#fff176" opacity="0.6"/>
-    <!-- bright centre -->
-    <circle cx="20" cy="20" r="3.5" fill="white" opacity="0.9"/>
-  </svg>
-</div>
+<div class="cursor" id="cursor"></div>
 
 <!-- NAV -->
 <nav>
@@ -603,59 +410,32 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
     </svg>
     Lighthouse
   </a>
-  <div class="nav-right">
-    <div class="nav-dropdown" id="navDropdown">
-      <button class="nav-dropdown-btn" id="navBtn">
-        Menu
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="rgba(255,255,255,0.65)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="dropdown-menu" id="dropdownMenu">
-        <a href="#what">What We Do</a>
-        <a href="#impact">Impact</a>
-        <a href="#how">How It Works</a>
-        <a href="#team">Team</a>
-        <a href="gallery.html" style="color:var(--yellow);">Our Gallery ✦</a>
-      </div>
-    </div>
-    <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="nav-cta">Volunteer →</a>
-  </div>
+  <ul class="nav-links">
+    <li><a href="#what">What We Do</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+  <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="nav-cta">Volunteer →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="blob blob1"></div><div class="blob blob2"></div>
   <div class="blob blob3"></div><div class="blob blob4"></div>
-  <!-- sparkling stars -->
-  <svg class="star-spark" style="top:18%;right:22%;--sd:2.8s;--delay:0s;width:30px;height:30px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-  <svg class="star-spark" style="top:42%;right:18%;--sd:3.4s;--delay:-1.2s;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#4eb4ff"/></svg>
-  <svg class="star-spark" style="top:65%;right:30%;--sd:2.2s;--delay:-0.5s;width:26px;height:26px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ff6b5b"/></svg>
-  <svg class="star-spark" style="top:28%;right:40%;--sd:4s;--delay:-2s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#c084fc"/></svg>
-  <svg class="star-spark" style="top:55%;right:14%;--sd:3.1s;--delay:-1.8s;width:28px;height:28px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#3dffc0"/></svg>
-  <svg class="star-spark" style="top:12%;right:50%;--sd:2.5s;--delay:-0.3s;width:20px;height:20px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-  <svg class="star-spark" style="top:78%;right:22%;--sd:3.7s;--delay:-2.5s;width:24px;height:24px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#4eb4ff"/></svg>
-  <svg class="star-spark" style="top:35%;right:55%;--sd:2.9s;--delay:-1s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#c084fc"/></svg>
-  <!-- 4-point cross stars -->
-  <svg class="star-spark" style="top:22%;right:32%;--sd:2.1s;--delay:-0.7s;width:24px;height:24px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#ffe14d"/></svg>
-  <svg class="star-spark" style="top:70%;right:42%;--sd:3.3s;--delay:-1.5s;width:28px;height:28px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#ff6b5b"/></svg>
-  <svg class="star-spark" style="top:48%;right:60%;--sd:2.6s;--delay:-0.9s;width:20px;height:20px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#3dffc0"/></svg>
-  <svg class="star-spark" style="top:85%;right:35%;--sd:4.2s;--delay:-3s;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#c084fc"/></svg>
-  <!-- tiny 3-point sparkles -->
-  <svg class="star-spark" style="top:9%;right:26%;--sd:1.9s;--delay:-0.4s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.7"/></svg>
-  <svg class="star-spark" style="top:60%;right:48%;--sd:2.4s;--delay:-1.6s;width:17px;height:17px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.7"/></svg>
-  <svg class="star-spark" style="top:32%;right:12%;--sd:3.6s;--delay:-2.2s;width:19px;height:19px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#ffe14d" opacity="0.8"/></svg>
+  <div class="float-shape fs1"></div><div class="float-shape fs2"></div>
+  <div class="float-shape fs3"></div><div class="float-shape fs4"></div>
   <div class="hero-content">
-    <div class="hero-badge"><div class="dot"></div>Youth-led · Sharqiyah</div>
+    <div class="hero-badge"><div class="dot"></div>Youth-led · Dammam</div>
     <h1 class="hero-title">Illuminating<br>every child's<br><span class="word-light">future.</span></h1>
-    <p class="hero-sub">Lighthouse partners with orphanages to deliver art kits, online tutoring, and mentorship — turning curiosity into confidence, one child at a time.</p>
+    <p class="hero-sub">Lighthouse partners with orphanages to deliver art kits, tutoring, and mentorship — turning curiosity into confidence, one child at a time.</p>
     <div class="hero-btns">
       <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="btn-primary">Become a Volunteer →</a>
       <a href="#what" class="btn-secondary">Learn More</a>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="n">SDG 4</div><div class="l">Quality Education</div></div>
-      <div class="hstat"><div class="n">KSA</div><div class="l">Sharqiyah</div></div>
+      <div class="hstat"><div class="n">KSA</div><div class="l">Dammam</div></div>
       <div class="hstat"><div class="n">2026</div><div class="l">Est. 2026</div></div>
     </div>
   </div>
@@ -664,8 +444,8 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 <!-- STRIP -->
 <div class="mission-strip">
   <div class="strip-track">
-    <div class="strip-text">Illuminate <span class="strip-dot"></span> Educate <span class="strip-dot"></span> Empower <span class="strip-dot"></span> Create <span class="strip-dot"></span> Inspire <span class="strip-dot"></span> Transform <span class="strip-dot"></span> Connect <span class="strip-dot"></span></div>
-    <div class="strip-text" aria-hidden="true">Illuminate <span class="strip-dot"></span> Educate <span class="strip-dot"></span> Empower <span class="strip-dot"></span> Create <span class="strip-dot"></span> Inspire <span class="strip-dot"></span> Transform <span class="strip-dot"></span> Connect <span class="strip-dot"></span></div>
+    <div class="strip-text">Art Kits <span class="strip-dot"></span> Math Tutoring <span class="strip-dot"></span> English Lessons <span class="strip-dot"></span> Creative Expression <span class="strip-dot"></span> Orphanage Partnerships <span class="strip-dot"></span> Making a Difference <span class="strip-dot"></span> Youth-Led Impact <span class="strip-dot"></span></div>
+    <div class="strip-text" aria-hidden="true">Art Kits <span class="strip-dot"></span> Math Tutoring <span class="strip-dot"></span> English Lessons <span class="strip-dot"></span> Creative Expression <span class="strip-dot"></span> Orphanage Partnerships <span class="strip-dot"></span> Making a Difference <span class="strip-dot"></span> Youth-Led Impact <span class="strip-dot"></span></div>
   </div>
 </div>
 
@@ -673,7 +453,7 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 <section class="what" id="what">
   <div class="section-tag tag-blue reveal">What We Do</div>
   <h2 class="sec-title reveal reveal-d1">Big dreams.<br><em>Real</em> actions.</h2>
-  <p class="sec-body reveal reveal-d2">We connect, supply up, and teach up — giving orphaned children the tools and skills to imagine a bigger future for themselves.</p>
+  <p class="sec-body reveal reveal-d2">We show up, supply up, and teach up — giving orphaned children the tools and skills to imagine a bigger future for themselves.</p>
   <div class="what-grid">
     <div class="what-card c1 reveal reveal-d1">
       <span class="card-icon">🎨</span>
@@ -684,13 +464,13 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
     <div class="what-card c2 reveal reveal-d2">
       <span class="card-icon">📐</span>
       <div class="card-title">Math & English Tutoring</div>
-      <div class="card-body">University volunteers lead structured online tutoring sessions with children at partner orphanages, making sure every child gets real, personalized academic support.</div>
+      <div class="card-body">University volunteers lead structured tutoring sessions at partner orphanages, making sure every child gets real, personalized academic support.</div>
       <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="card-arrow" style="color:var(--blue)">Get involved →</a>
     </div>
     <div class="what-card c3 reveal reveal-d3">
       <span class="card-icon">🤝</span>
       <div class="card-title">Mentorship & Connection</div>
-      <div class="card-body">Beyond lessons — our volunteers become role models. Consistent online check-ins build the kind of trust and connection that transforms a child's self-belief.</div>
+      <div class="card-body">Beyond lessons — our volunteers become role models. Consistent visits build the kind of trust and connection that transforms a child's self-belief.</div>
       <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="card-arrow">Get involved →</a>
     </div>
   </div>
@@ -700,17 +480,17 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 <section class="impact" id="impact">
   <div class="impact-layout">
     <div class="impact-nums">
-      <div class="icard i1 reveal"><div class="big-n">0</div><div class="small-l">Orphanages<br>Partnered</div></div>
+      <div class="icard i1 reveal"><div class="big-n">1</div><div class="small-l">Orphanages<br>Partnered</div></div>
       <div class="icard i2 reveal reveal-d1"><div class="big-n">20+</div><div class="small-l">Art Kits<br>Delivered</div></div>
-      <div class="icard i3 reveal reveal-d2"><div class="big-n" style="color:var(--dark)">1</div><div class="small-l" style="color:rgba(5,14,46,0.55)">Children<br>Tutored</div></div>
+      <div class="icard i3 reveal reveal-d2"><div class="big-n" style="color:var(--dark)">KSA</div><div class="small-l" style="color:rgba(5,14,46,0.55)">Eastern<br>Province</div></div>
       <div class="icard i4 reveal reveal-d3"><div class="big-n">2026</div><div class="small-l">Est.<br>2026</div></div>
     </div>
     <div class="impact-text reveal">
       <div class="section-tag tag-coral">Our Impact</div>
-      <h2 class="sec-title">Small initiative.<br><em>Real</em> change.</h2>
+      <h2 class="sec-title">Small org.<br><em>Real</em> change.</h2>
       <p class="sec-body">We just launched — but every kit delivered, every session held, and every volunteer hour logged is a building block toward something much bigger.</p>
       <div class="impact-quote">
-        Guiding children through education, art, and mentorship — because every child deserves a light in the dark.
+        Every child deserves someone who shows up for them, consistently and joyfully.
         <cite>— Lighthouse Mission</cite>
       </div>
     </div>
@@ -719,21 +499,9 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
-  <div class="sec-stars">
-    <svg class="sec-star" style="top:8%;left:4%;--sd:2.9s;--delay:0s;width:26px;height:26px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-    <svg class="sec-star" style="top:15%;left:18%;--sd:3.5s;--delay:-1.3s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#4eb4ff"/></svg>
-    <svg class="sec-star" style="top:5%;left:35%;--sd:2.2s;--delay:-0.6s;width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.8"/></svg>
-    <svg class="sec-star" style="top:60%;left:6%;--sd:3.8s;--delay:-2.1s;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#c084fc"/></svg>
-    <svg class="sec-star" style="top:80%;left:20%;--sd:2.5s;--delay:-0.4s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#ffe14d"/></svg>
-    <svg class="sec-star" style="top:40%;left:92%;--sd:3.1s;--delay:-1.7s;width:24px;height:24px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#3dffc0"/></svg>
-    <svg class="sec-star" style="top:70%;left:85%;--sd:2.7s;--delay:-0.9s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#ff6b5b"/></svg>
-    <svg class="sec-star" style="top:20%;left:88%;--sd:4.0s;--delay:-2.5s;width:20px;height:20px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#ffe14d"/></svg>
-    <svg class="sec-star" style="top:88%;left:48%;--sd:2.3s;--delay:-1.1s;width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.7"/></svg>
-    <svg class="sec-star" style="top:50%;left:48%;--sd:3.3s;--delay:-3s;width:12px;height:12px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#4eb4ff"/></svg>
-  </div>
   <div class="section-tag reveal" style="background:rgba(61,255,192,0.08);color:#3dffc0;display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:18px;">How It Works</div>
   <h2 class="sec-title reveal reveal-d1">Simple process.<br><em>Lasting</em> impact.</h2>
-  <p class="sec-body reveal reveal-d2">From signing up to connecting with a child online — here's how Lighthouse works.</p>
+  <p class="sec-body reveal reveal-d2">From signing up to sitting beside a child with a pencil in hand — here's how Lighthouse works.</p>
   <div class="steps">
     <div class="step reveal">
       <div class="step-num">01</div><span class="step-icon">✍️</span>
@@ -749,8 +517,8 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
     </div>
     <div class="step reveal reveal-d2">
       <div class="step-num">03</div><span class="step-icon">🎒</span>
-      <div class="step-title">Connect & Teach</div>
-      <div class="step-body">Join our team online. Tutor, create art together, and build real connections that last beyond the session.</div>
+      <div class="step-title">Visit & Teach</div>
+      <div class="step-body">Join our team at the orphanage. Teach, create art, and build real connections that last beyond the session.</div>
       <div class="step-line"></div>
     </div>
     <div class="step reveal reveal-d3">
@@ -764,91 +532,28 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 <!-- TEAM -->
 <section class="team" id="team">
   <div class="section-tag tag-yellow reveal">The Team</div>
-  <h2 class="sec-title reveal reveal-d1">Built by the youth.<br><em>For</em> the youth.</h2>
+  <h2 class="sec-title reveal reveal-d1">Built by young people.<br><em>For</em> young people.</h2>
   <p class="sec-body reveal reveal-d2">A lean, passionate team of students and creatives who believe education is a right, not a privilege.</p>
   <div class="team-grid">
     <div class="team-card reveal"><div class="tc-top t1">✨</div><div class="tc-body"><div class="tc-role">Founder</div><div class="tc-name">Ayesha Ali</div><div class="tc-desc">Vision, strategy, external partnerships, and keeping the whole ship on course.</div></div></div>
     <div class="team-card reveal reveal-d1"><div class="tc-top t4">🌊</div><div class="tc-body"><div class="tc-role">Co-Founder</div><div class="tc-name">Moath Huzaim</div><div class="tc-desc">Co-leading Lighthouse's mission and driving the programs that bring real change to children's lives.</div></div></div>
-    <div class="team-card reveal reveal-d2"><div class="tc-top t3">📚</div><div class="tc-body"><div class="tc-role">Education Lead</div><div class="tc-name">Open Position</div><div class="tc-desc">Designs lesson plans, trains tutors, and tracks the children's learning progress over time.</div></div></div>
-    <div class="team-card reveal reveal-d1"><div class="tc-top t2">⚙️</div><div class="tc-body"><div class="tc-role">Operations Lead</div><div class="tc-name">Open Position</div><div class="tc-desc">Logistics, scheduling, volunteer coordination, and supply management. The backbone of Lighthouse.</div></div></div>
-    <div class="team-card reveal reveal-d2"><div class="tc-top t6">🎨</div><div class="tc-body"><div class="tc-role">Designer</div><div class="tc-name">Open Position</div><div class="tc-desc">Brand identity, logo, and Canva templates. Lighthouse's visual voice.</div></div></div>
-    <div class="team-card reveal reveal-d3"><div class="tc-top" style="background:linear-gradient(135deg,#1a5cff,#4eb4ff);height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;">🙌</div><div class="tc-body"><div class="tc-role">Volunteer</div><div class="tc-name">Could be you!</div><div class="tc-desc">We're always looking for passionate people to tutor children online, support our programs, and make a real difference.</div></div></div>
-  </div>
-</section>
-
-<!-- GALLERY CAROUSEL -->
-<section class="gallery-section" id="gallery">
-  <div class="section-tag tag-blue reveal">Our Gallery</div>
-  <h2 class="sec-title reveal reveal-d1">Moments that<br><em>matter.</em></h2>
-  <p class="sec-body reveal reveal-d2">A glimpse into Lighthouse — our sessions, our team, and the children we exist for. More photos coming soon.</p>
-
-  <div class="carousel-track-wrap reveal">
-    <div class="carousel-track" id="carouselTrack">
-      <!-- Slide 1 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-      <!-- Slide 2 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-      <!-- Slide 3 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-      <!-- Slide 4 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-      <!-- Slide 5 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-      <!-- Slide 6 -->
-      <div class="carousel-slide">
-        <div class="slide-placeholder">📸</div>
-        <div class="slide-label">Photo coming soon</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-nav">
-    <button class="carousel-btn" id="prevBtn">←</button>
-    <div class="carousel-dots" id="carouselDots"></div>
-    <button class="carousel-btn" id="nextBtn">→</button>
-  </div>
-
-  <div class="gallery-cta">
-    <a href="gallery.html" class="btn-gallery">✦ View Full Gallery</a>
+    <div class="team-card reveal reveal-d2"><div class="tc-top t2">⚙️</div><div class="tc-body"><div class="tc-role">Operations Lead</div><div class="tc-name">Open Position</div><div class="tc-desc">Logistics, scheduling, volunteer coordination, and supply management. The backbone of Lighthouse.</div></div></div>
+    <div class="team-card reveal reveal-d1"><div class="tc-top t3">📚</div><div class="tc-body"><div class="tc-role">Education Lead</div><div class="tc-name">Open Position</div><div class="tc-desc">Designs lesson plans, trains tutors, and tracks the children's learning progress over time.</div></div></div>
+    <div class="team-card reveal reveal-d2"><div class="tc-top t5">📸</div><div class="tc-body"><div class="tc-role">Media & Comms Lead</div><div class="tc-name">Open Position</div><div class="tc-desc">Runs Instagram, documents sessions within privacy rules, and tells Lighthouse's story to the world.</div></div></div>
+    <div class="team-card reveal reveal-d3"><div class="tc-top t6">🎨</div><div class="tc-body"><div class="tc-role">Advisory Designer</div><div class="tc-name">Dana Najjar</div><div class="tc-desc">Brand identity, logo, and Canva templates. Lighthouse's visual voice — minimal commitment, maximum impact.</div></div></div>
   </div>
 </section>
 
 <!-- JOIN -->
 <section class="join" id="join">
   <div class="join-blob1"></div><div class="join-blob2"></div>
-  <div class="sec-stars">
-    <svg class="sec-star" style="top:10%;left:5%;--sd:3.2s;--delay:-0.5s;width:28px;height:28px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-    <svg class="sec-star" style="top:55%;left:3%;--sd:2.6s;--delay:-1.8s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#4eb4ff"/></svg>
-    <svg class="sec-star" style="top:80%;left:12%;--sd:3.8s;--delay:-0.2s;width:20px;height:20px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.8"/></svg>
-    <svg class="sec-star" style="top:18%;left:88%;--sd:2.4s;--delay:-2.2s;width:26px;height:26px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#3dffc0"/></svg>
-    <svg class="sec-star" style="top:60%;left:92%;--sd:3.5s;--delay:-1s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#c084fc"/></svg>
-    <svg class="sec-star" style="top:85%;left:80%;--sd:2.9s;--delay:-0.7s;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#ffe14d" opacity="0.9"/></svg>
-    <svg class="sec-star" style="top:30%;left:15%;--sd:4.1s;--delay:-3.1s;width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.6"/></svg>
-    <svg class="sec-star" style="top:12%;left:60%;--sd:2.1s;--delay:-1.4s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ff6b5b"/></svg>
-    <svg class="sec-star" style="top:72%;left:55%;--sd:3.0s;--delay:-2.6s;width:12px;height:12px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#4eb4ff"/></svg>
-  </div>
   <div class="join-inner">
     <div class="section-tag reveal" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:20px;">Join Lighthouse</div>
     <h2 class="reveal reveal-d1">Be the light<br>someone <em>needs.</em></h2>
     <p class="reveal reveal-d2">Whether you want to tutor, donate supplies, or just spread the word — there's a place for you in Lighthouse.</p>
     <div class="join-btns reveal reveal-d3">
       <a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank" class="btn-white">Volunteer with Us →</a>
-      <a href="https://www.instagram.com/thelighthouse.initiative/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-outline-white">Follow on Instagram</a>
+      <a href="https://www.instagram.com/lighthouse._org/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-outline-white">Follow on Instagram</a>
     </div>
   </div>
 </section>
@@ -1045,15 +750,6 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
 
   <!-- OCEAN FLOOR FOOTER -->
   <div class="ocean-floor">
-    <div class="sec-stars">
-      <svg class="sec-star" style="top:12%;left:2%;--sd:3.0s;--delay:-0.5s;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-      <svg class="sec-star" style="top:50%;left:5%;--sd:2.5s;--delay:-1.6s;width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#4eb4ff"/></svg>
-      <svg class="sec-star" style="top:78%;left:8%;--sd:3.7s;--delay:-0.3s;width:18px;height:18px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.7"/></svg>
-      <svg class="sec-star" style="top:20%;left:92%;--sd:2.8s;--delay:-2s;width:20px;height:20px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#3dffc0"/></svg>
-      <svg class="sec-star" style="top:65%;left:90%;--sd:3.3s;--delay:-1.1s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 1 L13 11 L23 12 L13 13 L12 23 L11 13 L1 12 L11 11 Z" fill="#c084fc"/></svg>
-      <svg class="sec-star" style="top:38%;left:50%;--sd:2.2s;--delay:-0.8s;width:12px;height:12px" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="white" opacity="0.6"/></svg>
-      <svg class="sec-star" style="top:88%;left:45%;--sd:4.0s;--delay:-2.8s;width:16px;height:16px" viewBox="0 0 24 24"><path d="M12 2 L13.5 9 L20 8 L15 13 L17 20 L12 16 L7 20 L9 13 L4 8 L10.5 9 Z" fill="#ffe14d"/></svg>
-    </div>
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -1091,21 +787,21 @@ h2.sec-title em { font-style: italic; color: var(--blue); }
           <ul>
             <li><a href="https://forms.gle/zEoiNqYmcwkcJNzdA" target="_blank">Volunteer</a></li>
             <li><a href="#">Donate Supplies</a></li>
-            <li><a href="https://forms.gle/FtRnd15ivCkiKCXU9" target="_blank">Partner with Us</a></li>
-            <li><a href="#" id="contactBtn">Contact</a></li>
+            <li><a href="#">Partner with Us</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Follow Us</h4>
           <ul>
-            <li><a href="https://www.instagram.com/thelighthouse.initiative/?utm_source=ig_web_button_share_sheet" target="_blank">Instagram</a></li>
+            <li><a href="https://www.instagram.com/lighthouse._org/?utm_source=ig_web_button_share_sheet" target="_blank">Instagram</a></li>
             <li><a href="#">WhatsApp</a></li>
           </ul>
         </div>
       </div>
       <hr class="footer-divider">
       <div class="footer-bottom">
-        <span>© 2026 Lighthouse. Youth-led initiative, Sharqiyah.</span>
+        <span>© 2026 Lighthouse. Youth-led initiative, Dammam.</span>
         <span>Illuminating futures, one child at a time.</span>
       </div>
     </div>
@@ -1140,77 +836,9 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Dropdown menu
-const navDropdown = document.getElementById('navDropdown');
-const navBtn = document.getElementById('navBtn');
-navBtn.addEventListener('click', () => navDropdown.classList.toggle('open'));
-document.addEventListener('click', e => {
-  if (!navDropdown.contains(e.target)) navDropdown.classList.remove('open');
-});
-document.querySelectorAll('.dropdown-menu a').forEach(a => {
-  a.addEventListener('click', (e) => {
-    e.preventDefault();
-    navDropdown.classList.remove('open');
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      const offset = 80; // fixed nav height
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
-
-// Carousel
-const track = document.getElementById('carouselTrack');
-const dotsContainer = document.getElementById('carouselDots');
-const slides = track ? track.querySelectorAll('.carousel-slide') : [];
-const visibleCount = window.innerWidth <= 700 ? 1 : 3;
-const totalSlides = slides.length;
-const maxIndex = Math.max(0, totalSlides - visibleCount);
-let currentIndex = 0;
-
-function buildDots() {
-  dotsContainer.innerHTML = '';
-  for (let i = 0; i <= maxIndex; i++) {
-    const d = document.createElement('div');
-    d.className = 'cdot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsContainer.appendChild(d);
-  }
-}
-function goTo(i) {
-  currentIndex = Math.max(0, Math.min(i, maxIndex));
-  const slideWidth = slides[0].offsetWidth + 22;
-  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  dotsContainer.querySelectorAll('.cdot').forEach((d, idx) => d.classList.toggle('active', idx === currentIndex));
-}
-if (track) {
-  buildDots();
-  document.getElementById('prevBtn').addEventListener('click', () => goTo(currentIndex - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => goTo(currentIndex + 1));
-}
-
-// Contact modal
-const modal = document.getElementById('contactModal');
-const modalBox = modal.querySelector('div');
-function openModal() {
-  modal.style.pointerEvents = 'all';
-  modal.style.opacity = '1';
-  modalBox.style.transform = 'translateY(0)';
-}
-function closeModal() {
-  modal.style.opacity = '0';
-  modal.style.pointerEvents = 'none';
-  modalBox.style.transform = 'translateY(16px)';
-}
-document.getElementById('contactBtn').addEventListener('click', e => { e.preventDefault(); openModal(); });
-document.getElementById('closeContact').addEventListener('click', closeModal);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-
 // Nav
 window.addEventListener('scroll', () => {
-  document.querySelector('nav').style.background = window.scrollY > 40 ? 'rgba(5,14,46,0.97)' : 'rgba(5,14,46,0.82)';
+  const nav = document.querySelector('nav');
+  nav.style.background = window.scrollY > 50 ? 'rgba(5,14,46,0.97)' : 'rgba(5,14,46,0.82)';
 });
 </script>
-</body>
-</html>
